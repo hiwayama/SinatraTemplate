@@ -1,10 +1,11 @@
 #!/usr/local/bin/ruby -Ku
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 $LOAD_PATH << File.dirname(__FILE__)
 
 require'sinatra'
 require'sinatra/base'
+require_relative'./conf/boot.rb'
 
 # ---------------------------------- #
 # Server initializer 

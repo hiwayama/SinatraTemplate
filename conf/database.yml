@@ -1,0 +1,11 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: dbname
+  pool: 5
+  username: ymis
+  password: passwd
+  host: localhost
+  socket: /tmp/mysql.sock
+

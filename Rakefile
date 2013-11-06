@@ -19,6 +19,33 @@ namespace :server do
   end
 end
 
+namespace :db do
+  task :migrate do
+    ActiveRecord::Migrator.migrate(
+      'db/migrate', 
+      ENV["VERSION"] ? ENV["VERSION"].to_i : nil
+    )
+  end
+
+  task :create do
+    case SETTING["adapter"]
+    when "mysql2"
+      `mysql -u #{SETTING["username"]} -p -e "CREATE DATABASE #{SETTING["database"]} CHARACTER SET UTF8;"`
+    end
+  end
+
+  task :reset do 
+    case SETTING["adapter"]
+    when "sqlite3"
+      `rm #{SETTING["database"]}`
+    when "mysql2"
+      `mysql -u #{SETTING["username"]} -p -e "DROP DATABASE #{SETTING["database"]}"`
+    end
+    `rake db:create`
+    `rake db:migrate`
+  end
+end
+
 desc 'convert .haml files into .html files'
 task :haml do
   dir_name = "./views"
